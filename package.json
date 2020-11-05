@@ -1,0 +1,31 @@
+{
+  "name": "scraperama",
+  "version": "0.0.1",
+  "description": "Scrape csv, json and html files",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "d3-dsv": "^2.0.0",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HarryStevens/scraperama.git"
+  },
+  "keywords": [
+    "webscraping"
+  ],
+  "author": "Harry Stevens",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HarryStevens/scraperama/issues"
+  },
+  "homepage": "https://github.com/HarryStevens/scraperama#readme"
+}

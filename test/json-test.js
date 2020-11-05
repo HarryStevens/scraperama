@@ -1,5 +1,5 @@
-const scrappydoo = require("../");
+const scraperama = require("../");
 
-scrappydoo.json("https://results.enr.clarityelections.com//GA/105369/269359/json/ALL.json", json =>{
+scraperama.json("https://results.enr.clarityelections.com//GA/105369/269359/json/ALL.json", json =>{
   console.log(json);
 });

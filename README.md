@@ -1,26 +1,26 @@
-# scrappydoo
+# scraperama
 Scrape html, csv, json files from the internet.
 
 ## Installation
 
 ```bash
-npm i scrappydoo -S
+npm i scraperama -S
 ```
 
 ## Usage
 
 ```js
-const scrappydoo = require("scrappydoo");
+const scraperama = require("scraperama");
 
-scrappydoo.csv("file.csv", json => {
+scraperama.csv("file.csv", json => {
   console.log(json);
 });
 
-scrappydoo.html("file.csv", $ => {
+scraperama.html("file.csv", $ => {
   console.log($("body").html());
 });
 
-scrappydoo.json("file.json", json => {
+scraperama.json("file.json", json => {
   console.log(json);
 });
 ```

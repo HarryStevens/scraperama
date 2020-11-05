@@ -1,5 +1,5 @@
-const scrappydoo = require("../");
+const scraperama = require("../");
 
-scrappydoo.html("https://google.com", $ =>{
+scraperama.html("https://google.com", $ =>{
   console.log($("body").html());
 });
