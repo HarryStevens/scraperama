@@ -1,5 +1,5 @@
 const scrappydoo = require("../");
 
-scrappydoo.json(__dirname + "/files/file.json", json =>{
+scrappydoo.json("https://results.enr.clarityelections.com//GA/105369/269359/json/ALL.json", json =>{
   console.log(json);
 });

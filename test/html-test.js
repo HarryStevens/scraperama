@@ -1,5 +1,5 @@
 const scrappydoo = require("../");
 
-scrappydoo.html(__dirname + "/files/file.html", $ =>{
+scrappydoo.html("https://google.com", $ =>{
   console.log($("body").html());
 });
