@@ -16,7 +16,7 @@ scraperama.csv("file.csv", json => {
   console.log(json);
 });
 
-scraperama.html("file.csv", $ => {
+scraperama.html("file.html", $ => {
   console.log($("body").html());
 });
 
