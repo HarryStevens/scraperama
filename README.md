@@ -24,3 +24,8 @@ scraperama.json("file.json", json => {
   console.log(json);
 });
 ```
+
+To get an object's file size:
+```js
+scraperama.filesize(object);
+```
