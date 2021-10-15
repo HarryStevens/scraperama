@@ -29,3 +29,9 @@ To get an object's file size:
 ```js
 scraperama.filesize(object);
 ```
+
+To throttle a function:
+```js
+const logThrottled = scraperama.throttle(console.log, 500);
+Array.from({ length: 10 }).forEach((_, i) => logThrottled(i));
+```
