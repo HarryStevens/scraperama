@@ -1,5 +1,5 @@
 # scraperama
-Scrape html, csv, json files from the internet.
+Scrape files from the internet.
 
 ## Installation
 
@@ -22,6 +22,10 @@ scraperama.html("file.html", $ => {
 
 scraperama.json("file.json", json => {
   console.log(json);
+});
+
+scraperama.text("file.txt", text => {
+  console.log(text);
 });
 ```
 
