@@ -29,6 +29,16 @@ scraperama.text("file.txt", text => {
 });
 ```
 
+To download any old file:
+```js
+scraperama.download(
+  "path/to/file.zip",
+  `${__dirname}/local/file.zip`,
+  () => { console.log("Done!"); },
+  true // true shows percentage downloaded
+)
+```
+
 To get an object's file size:
 ```js
 scraperama.filesize(object);
