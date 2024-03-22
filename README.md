@@ -33,9 +33,9 @@ To download any old file:
 ```js
 scraperama.download(
   "path/to/file.zip", // URL
-  `${__dirname}/local/file.zip`, // local file
-  () => { console.log("Done!"); }, // callback function
-  true // true shows percentage downloaded
+  `${__dirname}/local/file.zip`, // local file path
+  (pct) => { process.stdout.write(`\r${pct.toFixed(1)}%`); }, // log percentage downloaded
+  () => { console.log("Done!"); } // callback function
 );
 ```
 

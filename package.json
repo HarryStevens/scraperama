@@ -10,7 +10,6 @@
     "cheerio": "^1.0.0-rc.3",
     "d3-dsv": "^2.0.0",
     "filesize": "^6.2.2",
-    "logpct": "^0.0.2",
     "object-sizeof": "^1.6.1",
     "request": "^2.88.2",
     "underscore": "^1.13.1"

@@ -1,8 +1,7 @@
 const fs = require("fs");
-const logpct = require("logpct");
 const request = require("request");
 
-module.exports = function download(url, outputPath, cb, log){
+module.exports = function download(url, outputPath, log, cb){
   // Save variable to know progress
   let received_bytes = 0;
   let total_bytes = 0;
@@ -24,7 +23,7 @@ module.exports = function download(url, outputPath, cb, log){
     // Update the received bytes
     received_bytes += chunk.length;
 
-    if (log) logpct(received_bytes / total_bytes * 100);
+    if (log) log(received_bytes / total_bytes * 100);
   });
 
   req.on("end", () => {
