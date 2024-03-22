@@ -32,11 +32,11 @@ scraperama.text("file.txt", text => {
 To download any old file:
 ```js
 scraperama.download(
-  "path/to/file.zip",
-  `${__dirname}/local/file.zip`,
-  () => { console.log("Done!"); },
+  "path/to/file.zip", // URL
+  `${__dirname}/local/file.zip`, // local file
+  () => { console.log("Done!"); }, // callback function
   true // true shows percentage downloaded
-)
+);
 ```
 
 To get an object's file size:
