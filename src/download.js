@@ -1,7 +1,7 @@
 const fs = require("fs");
 const request = require("request");
 
-module.exports = function download(url, outputPath, log, cb){
+module.exports = function download(url, outputPath, log, callback){
   // Save variable to know progress
   let received_bytes = 0;
   let total_bytes = 0;
@@ -27,7 +27,6 @@ module.exports = function download(url, outputPath, log, cb){
   });
 
   req.on("end", () => {
-    if (log) console.log("");
-    if (cb) cb();
+    if (callback) callback();
   });
 }
