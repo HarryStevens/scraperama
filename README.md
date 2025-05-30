@@ -39,6 +39,13 @@ scraperama.download(
 );
 ```
 
+To return a YYYY-MM-DD datestamp (useful for file naming):
+```js
+scraperama.datestamp(); // current date
+scraperama.datestamp(new Date(1999, 0, 1)); // "1999-01-01"
+scraperama.datestamp("foo"); // throws a type error
+```
+
 To get an object's file size:
 ```js
 scraperama.filesize(object);

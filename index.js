@@ -5,11 +5,13 @@ const text = require("./src/text");
 
 const download = require("./src/download");
 
+const datestamp = require("./src/datestamp");
 const filesize = require("./src/filesize");
-const throttle = require("./src/throttle.js");
+const throttle = require("./src/throttle");
 
 module.exports = {
   csv,
+  datestamp,
   html,
   json,
   text,
