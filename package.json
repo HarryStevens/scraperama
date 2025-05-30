@@ -1,6 +1,6 @@
 {
   "name": "scraperama",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Scrape csv, json and html files",
   "main": "index.js",
   "directories": {
