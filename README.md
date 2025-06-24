@@ -64,7 +64,7 @@ To untar a local file:
 ```js
 scraperama.untar(
   "path/to/file.tar", // input tar file
-  `path/to/dir`, // output directory
+  "path/to/dir", // output directory
   (err) => { 
     if (err) console.error(err);
     console.log("Done!");
