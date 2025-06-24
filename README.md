@@ -71,3 +71,15 @@ scraperama.untar(
   } // callback function
 );
 ```
+
+To unzip a local file:
+```js
+scraperama.unzip(
+  "path/to/file.tar", // input tar file
+  "path/to/dir", // output directory
+  (err) => { 
+    if (err) console.error(err);
+    console.log("Done!");
+  } // callback function
+);
+```

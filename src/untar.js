@@ -11,7 +11,7 @@ module.exports = function untar(file, cwd, callback) {
     .x({
       file,
       cwd,
-      strict: true,
+      strict: true
     })
     .then(() => callback(null))
     .catch(err => callback(err));
