@@ -12,6 +12,7 @@
     "filesize": "^6.2.2",
     "object-sizeof": "^1.6.1",
     "request": "^2.88.2",
+    "tar": "^7.4.3",
     "underscore": "^1.13.1"
   },
   "scripts": {

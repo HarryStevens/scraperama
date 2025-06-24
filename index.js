@@ -4,6 +4,7 @@ const json = require("./src/json");
 const text = require("./src/text");
 
 const download = require("./src/download");
+const untar = require("./src/untar");
 
 const datestamp = require("./src/datestamp");
 const filesize = require("./src/filesize");
@@ -16,6 +17,7 @@ module.exports = {
   json,
   text,
   download,
+  untar,
   filesize,
   throttle
 }
