@@ -15,7 +15,7 @@ scraperama.download(
       (err) => { 
         if (err) console.error(err);
         console.log("\nDone!");
-        // fs.rmSync(`${__dirname}/temp`, { recursive: true, force: true });
+        fs.rmSync(`${__dirname}/temp`, { recursive: true, force: true });
       }
     )
   }

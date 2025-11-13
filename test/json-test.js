@@ -1,5 +1,5 @@
 const scraperama = require("../");
 
-scraperama.json("https://results.enr.clarityelections.com//GA/105369/269359/json/ALL.json", json =>{
+scraperama.json("https://mysafeinfo.com/api/data?list=englishmonarchs&format=json", json =>{
   console.log(json);
 });
