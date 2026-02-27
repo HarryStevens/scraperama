@@ -1,5 +1,6 @@
-const requester = require("./requester");
+import { csvParse } from "d3-dsv";
+import requester from "./requester.js";
 
-module.exports = function(url, callback){
-  requester(require("d3-dsv").csvParse, url, callback);
+export default function csv(url, options) {
+  return requester(csvParse, url, options);
 }

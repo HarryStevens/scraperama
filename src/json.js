@@ -1,9 +1,13 @@
-const requester = require("./requester");
+import requester from "./requester.js";
 
-module.exports = function(url, callback){
-  requester(raw => {
-    const json = JSON.parse(raw);
-    json.columns = Object.keys(json[0] || json);
-    return json;
-  }, url, callback);
+export default function json(url, options) {
+  return requester(
+    (raw) => {
+      const data = JSON.parse(raw);
+      data.columns = Object.keys(data[0] || data);
+      return data;
+    },
+    url,
+    options,
+  );
 }

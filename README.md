@@ -1,85 +1,149 @@
 # scraperama
-Scrape files from the internet.
+
+Scrape files from the internet. Async, ESM, zero-HTTP-dependency (uses native `fetch`).
 
 ## Installation
 
 ```bash
-npm i scraperama -S
+npm i scraperama
 ```
+
+Requires Node 18+ (for native `fetch`).
 
 ## Usage
 
 ```js
-const scraperama = require("scraperama");
+import * as scraperama from "scraperama";
+```
 
-scraperama.csv("file.csv", json => {
-  console.log(json);
-});
+### Fetch and parse
 
-scraperama.html("file.html", $ => {
-  console.log($("body").html());
-});
+```js
+const $ = await html("https://example.com");
+$("h1").text(); // Cheerio instance
 
-scraperama.json("file.json", json => {
-  console.log(json);
-});
+const rows = await csv("https://example.com/data.csv");
+// Array of objects parsed by d3-dsv
 
-scraperama.text("file.txt", text => {
-  console.log(text);
+const obj = await json("https://example.com/data.json");
+// Parsed JSON with a .columns property
+
+const str = await text("https://example.com/file.txt");
+// Raw text string
+```
+
+### Headless browser
+
+Fetch pages with a headless Chromium browser (via [Playwright](https://playwright.dev/)). Useful for JS-rendered pages or sites behind WAF challenges.
+
+```bash
+npm i playwright
+```
+
+Pass `{ browser: true }` for one-off requests — a browser is launched and closed automatically each time:
+
+```js
+const $ = await html("https://www.epa.gov/newsreleases/search", {
+  browser: true,
 });
 ```
 
-To return a YYYY-MM-DD datestamp (useful for file naming):
+For bulk scraping, create a reusable browser instance with `createBrowser()` and pass it via the `browser` option. Pages are opened and closed per request, but the browser stays alive:
+
 ```js
-scraperama.datestamp(); // current date
-scraperama.datestamp(new Date(1999, 0, 1)); // "1999-01-01"
-scraperama.datestamp("foo"); // throws a type error
+const browser = await createBrowser();
+
+const $ = await html("https://example.com", { browser });
+
+await browser.close();
 ```
 
-To download a file from the Internet:
+Works with `html`, `csv`, `json`, and `text`. When `browser` is not set, native `fetch` is used as before.
+
+### Download a file
+
 ```js
-scraperama.download(
-  "https://path/to/file.zip", // URL
-  "path/to/file.zip", // local file path
-  (pct) => { process.stdout.write(`\r${pct.toFixed(1)}%`); }, // log percentage downloaded
-  (err) => { 
-    if (err) console.error(err);
-    console.log("Done!");
-  } // callback function
+await download("https://example.com/file.zip", "./file.zip", (pct) =>
+  process.stdout.write(`\r${pct.toFixed(1)}%`),
 );
 ```
 
-To get an object's file size:
+### Extract archives
+
 ```js
-scraperama.filesize(object);
+await untar("./file.tar", "./output");
+await unzip("./file.zip", "./output");
 ```
 
-To throttle a function:
+### Throttle
+
+Wrap any function with `throttle(fn, rate)` to limit how often it runs. Calls are queued and executed at most once every `rate` milliseconds:
+
 ```js
-const logThrottled = scraperama.throttle(console.log, 500);
-Array.from({ length: 10 }).forEach((_, i) => logThrottled(i));
+const log = throttle(console.log, 500);
+for (let i = 0; i < 10; i++) log(i); // logs one value every 500ms
 ```
 
-To untar a local file:
+This is especially useful for bulk scraping with a headless browser, where you want to avoid overwhelming a server:
+
 ```js
-scraperama.untar(
-  "path/to/file.tar", // input tar file
-  "path/to/dir", // output directory
-  (err) => { 
-    if (err) console.error(err);
-    console.log("Done!");
-  } // callback function
-);
+import { createBrowser, html, throttle } from "scraperama";
+
+const browser = await createBrowser();
+const urls = [
+  "https://example.com/page/1",
+  "https://example.com/page/2" /* ... */,
+];
+
+const scrape = throttle(async (url) => {
+  const $ = await html(url, { browser });
+  console.log($("h1").text());
+}, 1000);
+
+for (const url of urls) {
+  scrape(url);
+}
+
+// When finished:
+await browser.close();
 ```
 
-To unzip a local file:
+### Utilities
+
 ```js
-scraperama.unzip(
-  "path/to/file.tar", // input tar file
-  "path/to/dir", // output directory
-  (err) => { 
-    if (err) console.error(err);
-    console.log("Done!");
-  } // callback function
-);
+datestamp(); // "2026-02-27"
+datestamp(new Date(1999, 0, 1)); // "1999-01-01"
+
+filesize(someObject); // "1.2 MB"
 ```
+
+## Testing
+
+Each module has a corresponding test script in `test/`. These are integration tests that hit the network (except `datestamp` and `throttle`, which are local-only).
+
+Run any individual test with:
+
+```bash
+node test/html-test.js
+node test/csv-test.js
+node test/download-test.js
+# etc.
+```
+
+Run all tests:
+
+```bash
+npm test
+```
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md).
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## License
+
+MIT

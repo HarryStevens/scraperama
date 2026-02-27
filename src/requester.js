@@ -1,32 +1,42 @@
-const agents = [
-  // Chrome on Windows
-  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-  
-  // Chrome on macOS
-  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-  
-  // Firefox on Windows
-  "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:125.0) Gecko/20100101 Firefox/125.0",
-  
-  // Safari on macOS
-  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4.1 Safari/605.1.15"
-];
+import randomAgent from "./utils/agent.js";
+import { loadPlaywright } from "./browser.js";
 
-module.exports = function(parser, url, callback){
-  require("request")({
-    url,
-    headers: {
-      "User-Agent": agents[Math.floor(Math.random() * agents.length)]
-    }
-  }, function(err, res, body){
-    if (err){
-      console.log("Error requesting " + url, err);
-      return;
-    }
-    if (res.statusCode !== 200){
-      console.log("Bad status requesting " + url, res.statusCode);
-      return;
-    }
-    callback(parser(body));
+export default async function requester(parser, url, options = {}) {
+  const body =
+    options.browser === true
+      ? await browserFetchOnce(url)
+      : options.browser
+        ? await browserFetchReuse(url, options.browser)
+        : await nativeFetch(url);
+  return parser(body);
+}
+
+async function nativeFetch(url) {
+  const res = await fetch(url, {
+    headers: { "User-Agent": randomAgent() },
   });
+  if (!res.ok) throw new Error(`Request failed ${url}: ${res.status}`);
+  return res.text();
+}
+
+async function browserFetchOnce(url) {
+  const pw = await loadPlaywright();
+  const browser = await (pw.chromium || pw.default.chromium).launch();
+  try {
+    const page = await browser.newPage();
+    await page.goto(url, { waitUntil: "networkidle" });
+    return await page.content();
+  } finally {
+    await browser.close();
+  }
+}
+
+async function browserFetchReuse(url, browser) {
+  const page = await browser.newPage();
+  try {
+    await page.goto(url, { waitUntil: "networkidle" });
+    return await page.content();
+  } finally {
+    await page.close();
+  }
 }

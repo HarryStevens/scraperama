@@ -1,5 +1,10 @@
-const scraperama = require("../");
+import { datestamp } from "../index.js";
 
-console.log(scraperama.datestamp());
-console.log(scraperama.datestamp(new Date(1999, 0, 1)));
-console.log(scraperama.datestamp("break"));
+console.log(datestamp());
+console.log(datestamp(new Date(1999, 0, 1)));
+
+try {
+  datestamp("break");
+} catch (e) {
+  console.log(e.message);
+}

@@ -1,5 +1,6 @@
-const requester = require("./requester");
+import cheerio from "cheerio";
+import requester from "./requester.js";
 
-module.exports = function(url, callback){
-  requester(require("cheerio").load, url, callback);
+export default function html(url, options) {
+  return requester(cheerio.load, url, options);
 }

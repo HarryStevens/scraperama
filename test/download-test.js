@@ -1,16 +1,17 @@
-const fs = require("fs");
-const scraperama = require("../");
+import { unlinkSync } from "fs";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+import { download } from "../index.js";
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
 const filename = `${__dirname}/file.csv`;
 
-scraperama.download(
+await download(
   "https://harryjstevens.com/projects/indian-candidate-details/data/andhra-pradesh/2019/andhra-pradesh_2019_candidates_MASTER.csv",
-  filename, 
+  filename,
   (pct) => {
     process.stdout.write(`\r${pct.toFixed(1)}%`);
   },
-  () => {
-    fs.unlinkSync(filename); // remove this is you want to test it really downloaded
-    console.log("\nDone!");
-  },
 );
+unlinkSync(filename);
+console.log("\nDone!");

@@ -1,36 +1,45 @@
-const fs = require("fs");
-const path = require("path");
-const unzipper = require("unzipper");
+import {
+  createReadStream,
+  existsSync,
+  mkdirSync,
+  readdirSync,
+  rmSync,
+  statSync,
+  unlinkSync,
+} from "fs";
+import { join } from "path";
+import unzipper from "unzipper";
 
-module.exports = function unzip(file, cwd, callback) {
-  if (!file) return callback(new Error("Specify an input path"));
-  if (!cwd) return callback(new Error("Specify an output directory"));
+export default function unzip(file, cwd) {
+  if (!file) throw new Error("Specify an input path");
+  if (!cwd) throw new Error("Specify an output directory");
 
-  fs.mkdirSync(cwd, { recursive: true });
+  mkdirSync(cwd, { recursive: true });
 
-  fs.createReadStream(file)
-    .pipe(unzipper.Extract({ path: cwd }))
-    .on("close", () => {
-      // After extraction, clean up __MACOSX and .DS_Store
-      cleanJunk(cwd, ["__MACOSX", ".DS_Store"]);
-      callback(null);
-    })
-    .on("error", err => callback(err));
-};
+  return new Promise((resolve, reject) => {
+    createReadStream(file)
+      .pipe(unzipper.Extract({ path: cwd }))
+      .on("close", () => {
+        cleanJunk(cwd, ["__MACOSX", ".DS_Store"]);
+        resolve();
+      })
+      .on("error", reject);
+  });
+}
 
 function cleanJunk(dir, junk) {
-  if (!fs.existsSync(dir)) return;
+  if (!existsSync(dir)) return;
 
-  for (const entry of fs.readdirSync(dir)) {
-    const fullPath = path.join(dir, entry);
-    const stat = fs.statSync(fullPath);
+  for (const entry of readdirSync(dir)) {
+    const fullPath = join(dir, entry);
+    const stat = statSync(fullPath);
 
     if (junk.includes(entry)) {
       stat.isDirectory()
-        ? fs.rmSync(fullPath, { recursive: true, force: true })
-        : fs.unlinkSync(fullPath);
+        ? rmSync(fullPath, { recursive: true, force: true })
+        : unlinkSync(fullPath);
     } else if (stat.isDirectory()) {
-      cleanJunk(fullPath, junk); // recurse into subdirs
+      cleanJunk(fullPath, junk);
     }
   }
 }

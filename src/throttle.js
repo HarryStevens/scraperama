@@ -1,13 +1,11 @@
-// https://gist.github.com/mattheworiordan/1084831
-const _ = require("underscore");
-module.exports = function throttle(fn, rate) {
+export default function throttle(fn, rate) {
   const queue = [];
   let currentlyEmptyingQueue = false;
-  
+
   const emptyQueue = () => {
     if (queue.length) {
       currentlyEmptyingQueue = true;
-      _.delay(function() {
+      setTimeout(() => {
         queue.shift().call();
         emptyQueue();
       }, rate);
@@ -15,10 +13,9 @@ module.exports = function throttle(fn, rate) {
       currentlyEmptyingQueue = false;
     }
   };
-  
-  return function() {
-    // call apply so that we can pass in arguments as parameters as opposed to an array
-    queue.push( _.bind.apply(this, [fn, this].concat(Array.from(arguments))) ); 
-    if (!currentlyEmptyingQueue) { emptyQueue(); }
+
+  return function (...args) {
+    queue.push(fn.bind(this, ...args));
+    if (!currentlyEmptyingQueue) emptyQueue();
   };
-};
+}

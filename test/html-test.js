@@ -1,5 +1,4 @@
-const scraperama = require("../");
+import { html } from "../index.js";
 
-scraperama.html("https://google.com", $ =>{
-  console.log($("body").html());
-});
+const $ = await html("https://google.com");
+console.log($("body").html());

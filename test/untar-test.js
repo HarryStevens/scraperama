@@ -1,22 +1,20 @@
-const fs = require("fs");
-const scraperama = require("..");
+import { mkdirSync, rmSync } from "fs";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+import { download, untar } from "../index.js";
 
-fs.mkdirSync(`${__dirname}/temp`, { recursive: true });
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
-scraperama.download(
-  "https://getsamplefiles.com/download/tar/sample-1.tar",
-  `${__dirname}/temp/sample-1.tar`,
-  (pct) => { process.stdout.write(`\r${pct.toFixed(1)}%`); }, // log percentage downloaded
-  (err) => { 
-    if (err) console.error(err);
-    scraperama.untar(
-      `${__dirname}/temp/sample-1.tar`,
-      `${__dirname}/temp/untarred`,
-      (err) => { 
-        if (err) console.error(err);
-        console.log("\nDone!");
-        fs.rmSync(`${__dirname}/temp`, { recursive: true, force: true });
-      }
-    )
-  }
+mkdirSync(`${__dirname}/temp`, { recursive: true });
+
+await download(
+  "https://github.com/madler/zlib/archive/refs/tags/v1.3.1.tar.gz",
+  `${__dirname}/temp/sample.tar.gz`,
+  (pct) => {
+    process.stdout.write(`\r${pct.toFixed(1)}%`);
+  },
 );
+
+await untar(`${__dirname}/temp/sample.tar.gz`, `${__dirname}/temp/untarred`);
+console.log("\nDone!");
+rmSync(`${__dirname}/temp`, { recursive: true, force: true });

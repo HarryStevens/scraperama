@@ -1,4 +1,6 @@
-const f = require("filesize");
-const s = require("object-sizeof");
+import fmt from "filesize";
+import sizeof from "object-sizeof";
 
-module.exports = function filesize(object){ return f(s(object)); }
+export default function filesize(object) {
+  return fmt(sizeof(object));
+}

@@ -1,5 +1,6 @@
-const scraperama = require("../");
+import { json } from "../index.js";
 
-scraperama.json("https://mysafeinfo.com/api/data?list=englishmonarchs&format=json", json =>{
-  console.log(json);
-});
+const data = await json(
+  "https://mysafeinfo.com/api/data?list=englishmonarchs&format=json",
+);
+console.log(data);

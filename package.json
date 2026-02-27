@@ -1,8 +1,10 @@
 {
   "name": "scraperama",
-  "version": "0.0.13",
+  "version": "1.0.0",
   "description": "Scrape csv, json and html files",
+  "type": "module",
   "main": "index.js",
+  "exports": "./index.js",
   "directories": {
     "test": "test"
   },
@@ -11,13 +13,31 @@
     "d3-dsv": "^2.0.0",
     "filesize": "^6.2.2",
     "object-sizeof": "^1.6.1",
-    "request": "^2.88.2",
     "tar": "^7.4.3",
-    "underscore": "^1.13.1",
     "unzipper": "^0.12.3"
   },
+  "peerDependencies": {
+    "playwright": "^1.0.0"
+  },
+  "peerDependenciesMeta": {
+    "playwright": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "conventional-changelog-conventionalcommits": "^9.1.0",
+    "eslint": "^9.0.0",
+    "globals": "^15.0.0",
+    "prettier": "^3.0.0",
+    "semantic-release": "^24.0.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint .",
+    "test": "for f in test/*-test.js; do echo \"--- $f ---\"; node \"$f\" || exit 1; done"
   },
   "repository": {
     "type": "git",

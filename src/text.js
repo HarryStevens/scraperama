@@ -1,5 +1,5 @@
-const requester = require("./requester");
+import requester from "./requester.js";
 
-module.exports = function(url, callback){
-  requester(text => text, url, callback);
+export default function text(url, options) {
+  return requester((t) => t, url, options);
 }

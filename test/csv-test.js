@@ -1,5 +1,6 @@
-const scraperama = require("../");
+import { csv } from "../index.js";
 
-scraperama.csv("https://cdn.wsform.com/wp-content/uploads/2020/06/industry.csv", json =>{
-  console.log(json);
-});
+const data = await csv(
+  "https://cdn.wsform.com/wp-content/uploads/2020/06/industry.csv",
+);
+console.log(data);
