@@ -1,3 +1,15 @@
+## [1.0.0](https://github.com/HarryStevens/scraperama/compare/v0.0.13...v1.0.0) (2026-02-27)
+
+### ⚠ BREAKING CHANGES
+
+* All functions now return promises instead of callbacks. The package is now ESM-only. request and underscore have been removed as dependencies.
+
+Made-with: Cursor
+
+### Features
+
+* v1.0.0 — ESM, async/await, native fetch, browser support ([36d8332](https://github.com/HarryStevens/scraperama/commit/36d8332fa129f4145336ecd892ca811b85e95836))
+
 # Changelog
 
 ## 1.0.0
