@@ -2,13 +2,27 @@ import randomAgent from "./utils/agent.js";
 import { loadPlaywright } from "./browser.js";
 
 export default async function requester(parser, url, options = {}) {
-  const body =
-    options.browser === true
-      ? await browserFetchOnce(url)
-      : options.browser
-        ? await browserFetchReuse(url, options.browser)
-        : await nativeFetch(url);
-  return parser(body);
+  const { retries = 0, retryDelay = 1000 } = options;
+
+  let lastError;
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    try {
+      const body =
+        options.browser === true
+          ? await browserFetchOnce(url)
+          : options.browser
+            ? await browserFetchReuse(url, options.browser)
+            : await nativeFetch(url);
+      return parser(body);
+    } catch (error) {
+      lastError = error;
+      if (attempt < retries) {
+        const delay = retryDelay * 2 ** attempt;
+        await new Promise((resolve) => setTimeout(resolve, delay));
+      }
+    }
+  }
+  throw lastError;
 }
 
 async function nativeFetch(url) {

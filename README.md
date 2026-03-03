@@ -64,6 +64,22 @@ await browser.close();
 
 Works with `html`, `xml`, `csv`, `json`, and `text`. When `browser` is not set, native `fetch` is used as before.
 
+### Retries
+
+Automatically retry failed requests (non-2xx responses or network errors) with exponential backoff:
+
+```js
+const $ = await html("https://example.com", {
+  retries: 3,
+  retryDelay: 1000,
+});
+```
+
+- `retries` — number of retry attempts after the initial failure (default `0`)
+- `retryDelay` — base delay in milliseconds (default `1000`). Each subsequent retry doubles the delay (1s, 2s, 4s, …).
+
+Works with `html`, `xml`, `csv`, `json`, and `text`, and can be combined with the `browser` option.
+
 ### Download a file
 
 ```js
