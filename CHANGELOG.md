@@ -2,7 +2,7 @@
 
 ### Features
 
-* add xml parser ([4ebf4f7](https://github.com/HarryStevens/scraperama/commit/4ebf4f7ef82590954bec34d439d5cd50cf9960b2))
+- add xml parser ([4ebf4f7](https://github.com/HarryStevens/scraperama/commit/4ebf4f7ef82590954bec34d439d5cd50cf9960b2))
 
 ## [1.0.0](https://github.com/HarryStevens/scraperama/compare/v0.0.13...v1.0.0) (2026-02-27)
 
