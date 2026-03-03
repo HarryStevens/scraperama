@@ -1,3 +1,13 @@
+## [1.2.0](https://github.com/HarryStevens/scraperama/compare/v1.1.0...v1.2.0) (2026-03-03)
+
+### Features
+
+* add retry support with exponential backoff ([6931efd](https://github.com/HarryStevens/scraperama/commit/6931efd94d31cbe902ec8ed188c785b1f515e82c))
+
+### Bug Fixes
+
+* ignore auto-generated CHANGELOG in Prettier checks ([14e91bf](https://github.com/HarryStevens/scraperama/commit/14e91bfe510e9b7890513b55ef70a6bbf7421f6c))
+
 ## [1.1.0](https://github.com/HarryStevens/scraperama/compare/v1.0.0...v1.1.0) (2026-03-03)
 
 ### Features
