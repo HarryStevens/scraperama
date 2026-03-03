@@ -137,20 +137,20 @@ If you add a new module, add a `test/<module>-test.js` file following the same p
 
 ## Rotating the npm token
 
-The CI release workflow requires an `NPM_TOKEN` secret to publish to npm. This token expires every 90 days and needs to be regenerated.
+The CI release workflow requires an `NPM_TOKEN` secret to publish to npm. Granular access tokens with write permissions expire every 90 days, so you'll need to regenerate periodically.
 
 1. Log in to [npmjs.com](https://www.npmjs.com) and go to **Avatar > Access Tokens** (or visit `https://www.npmjs.com/settings/<your-username>/tokens`).
-2. Click **Generate New Token > Granular Access Token**.
-3. Fill it out:
+2. Delete the old scraperama token if it exists.
+3. Click **Generate New Token > Granular Access Token**.
+4. Fill it out:
    - **Token name:** `scraperama`
-   - **Description:** `NPM token for scraperama CI`
-   - **Allowed IP ranges:** Leave empty (GitHub Actions uses dynamic IPs)
+   - **Expiration:** 90 days
    - **Packages and scopes:** **Read and write**, scoped to **Only select packages and scopes**, then select `scraperama`
    - **Organizations:** No access
-   - **Expiration:** 90 days (or longer if you prefer)
-4. Click **Generate token** and copy the value.
-5. Go to `https://github.com/HarryStevens/scraperama/settings/secrets/actions`.
-6. Update the `NPM_TOKEN` secret with the new value.
+   - **Bypass two-factor authentication (2FA):** **Check this box.** Without it, CI publishing will fail with an `EOTP` error because there is no way to provide an OTP in a non-interactive environment.
+5. Click **Generate token** and copy the value.
+6. Go to `https://github.com/HarryStevens/scraperama/settings/secrets/actions`.
+7. Update the `NPM_TOKEN` secret with the new value.
 
 ## Code of conduct
 
