@@ -1,7 +1,7 @@
 {
   "name": "scraperama",
   "version": "1.0.0",
-  "description": "Scrape csv, json and html files",
+  "description": "Scrape csv, json, html and xml files",
   "type": "module",
   "main": "index.js",
   "exports": "./index.js",

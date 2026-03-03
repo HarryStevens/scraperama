@@ -30,6 +30,10 @@ const obj = await json("https://example.com/data.json");
 
 const str = await text("https://example.com/file.txt");
 // Raw text string
+
+const $ = await xml("https://example.com/sitemap.xml");
+$("loc").each((_, el) => console.log($(el).text()));
+// Cheerio instance in XML mode
 ```
 
 ### Headless browser
@@ -58,7 +62,7 @@ const $ = await html("https://example.com", { browser });
 await browser.close();
 ```
 
-Works with `html`, `csv`, `json`, and `text`. When `browser` is not set, native `fetch` is used as before.
+Works with `html`, `xml`, `csv`, `json`, and `text`. When `browser` is not set, native `fetch` is used as before.
 
 ### Download a file
 

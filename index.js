@@ -2,6 +2,7 @@ export { default as csv } from "./src/csv.js";
 export { default as html } from "./src/html.js";
 export { default as json } from "./src/json.js";
 export { default as text } from "./src/text.js";
+export { default as xml } from "./src/xml.js";
 
 export { default as download } from "./src/download.js";
 

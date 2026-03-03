@@ -2,13 +2,13 @@
 
 ### ⚠ BREAKING CHANGES
 
-* All functions now return promises instead of callbacks. The package is now ESM-only. request and underscore have been removed as dependencies.
+- All functions now return promises instead of callbacks. The package is now ESM-only. request and underscore have been removed as dependencies.
 
 Made-with: Cursor
 
 ### Features
 
-* v1.0.0 — ESM, async/await, native fetch, browser support ([36d8332](https://github.com/HarryStevens/scraperama/commit/36d8332fa129f4145336ecd892ca811b85e95836))
+- v1.0.0 — ESM, async/await, native fetch, browser support ([36d8332](https://github.com/HarryStevens/scraperama/commit/36d8332fa129f4145336ecd892ca811b85e95836))
 
 # Changelog
 
