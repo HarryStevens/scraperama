@@ -1,3 +1,13 @@
+## [2.0.0](https://github.com/HarryStevens/scraperama/compare/v1.2.0...v2.0.0) (2026-03-04)
+
+### ⚠ BREAKING CHANGES
+
+* json() no longer adds a .columns property to the parsed response.
+
+### Bug Fixes
+
+* return parsed JSON unmodified from json() ([f350285](https://github.com/HarryStevens/scraperama/commit/f350285aaa6d27af9a4aaaa46905a9c82a0522b4))
+
 ## [1.2.0](https://github.com/HarryStevens/scraperama/compare/v1.1.0...v1.2.0) (2026-03-03)
 
 ### Features
