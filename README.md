@@ -26,7 +26,7 @@ const rows = await csv("https://example.com/data.csv");
 // Array of objects parsed by d3-dsv
 
 const obj = await json("https://example.com/data.json");
-// Parsed JSON with a .columns property
+// Parsed JSON
 
 const str = await text("https://example.com/file.txt");
 // Raw text string
